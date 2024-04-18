@@ -1,5 +1,5 @@
 # print com a mensagem de boas vindas
-print('Bem vindo a Loja do Gabriel Lopes dos Santos')
+print('Bem-vindo a Loja do Gabriel Lopes dos Santos')
 
 # Entrada do valor unitario
 preco = float(input('Digite o valor do produto: '))
