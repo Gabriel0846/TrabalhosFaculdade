@@ -1,0 +1,10 @@
+print('Bem vindo a Copiadora do Gabriel Lopes dos Santos')
+print()
+print('Entre com o tipo de serviço desejado')
+print('DIG - Digitalização')
+print('ICO - Impressão Colorida')
+print('IPB - Impressão Preto e Branco')
+print('FOT - Fotocópia')
+print()
+
+Servico = input('Selecione o serviço: ').upper()
