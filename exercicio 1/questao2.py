@@ -9,7 +9,7 @@ print('    |      G      |    R$ 18.00      |   R$ 20.00    |    ')
 print('     ´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´     ')
 print()
 
-# variavel que ira receber o total do pedido
+# variavel global que ira receber o total do pedido
 Total = 0
 
 # Loop principal para fazer o pedido e verificar se é valido

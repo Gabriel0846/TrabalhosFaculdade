@@ -3,7 +3,7 @@ print('Bem vindo a Copiadora do Gabriel Lopes dos Santos')
 
 
 # função para seleção do serviço, upper evita case sensive e else retorna um erro caso seja escolha invalida
-def Seleção_servico():
+def escolha_servico():
     while True:
         print()
         print('Entre com o tipo de serviço desejado')
@@ -11,44 +11,66 @@ def Seleção_servico():
         print('ICO - Impressão Colorida')
         print('IPB - Impressão Preto e Branco')
         print('FOT - Fotocópia')
-        print()
-        Servico = input('>> ').upper()
-        if Servico in ['DIG', 'ICO', 'IPB', 'FOT']:
-            return Servico
+        servico = input('>> ').upper()
+        if servico in ['DIG', 'ICO', 'IPB', 'FOT']:
+            return servico
         else:
             print('Escolha inválida, entre com o tipo do serviço novamente')
 
-def N_paginas():
+def num_pagina():
     while True:
         try:
-            Num_p = int(input('Digite o numero de páginas: '))
-            if Num_p >= 20000:
+            num_p = int(input('Digite o numero de páginas: '))
+            if num_p >= 20000:
                 print('Não aceitamos tantas páginas de uma vez.')
                 print('Por favor, digite o numero de paginas novamente.')
+                print()
             else:
-                if Num_p < 20:
-                    return Num_p
-                elif Num_p < 200:
-                    return int(Num_p * 0.85)
-                elif Num_p < 2000:
-                    return int(Num_p * 0.80)
+                if num_p < 20:
+                    return num_p
+                elif num_p < 200:
+                    return int(num_p * 0.85)
+                elif num_p < 2000:
+                    return int(num_p * 0.80)
                 else:
-                    return int(Num_p * .75)
+                    return int(num_p * .75)
         except ValueError:
             print('Numero de paginas invalido, por favor digite um numero inteiro.')
 
-def S_extra():
+def servico_extra():
     print('Deseja adicionar algum serviço extra?')
     print('1 - Encadernação Simples - R$ 15.00')
     print('2 - Encadernação Capa Dura - R$ 40.00')
     print('0 - Não desejo mais nada')
     while True:
-        S_extra = input('>> ')
-        if S_extra in ['1', '2', '0']:
-            return  int(S_extra)
+        s_extra = input('>> ')
+        if s_extra in ['1', '2', '0']:
+            return int(s_extra)
         else:
             print('Escolha inválida, tente novamente.')
 
-Servico = Seleção_servico()
-num_pag = N_paginas()
-extra = S_extra()
+servico = escolha_servico()
+num_p = num_pagina()
+extra = servico_extra()
+
+if servico == 'DIG':
+    v_serviço = num_p * 1.10
+elif servico == 'ICO':
+    v_serviço = num_p * 1.00
+elif servico == 'IPB':
+    v_serviço = num_p * 0.40
+else:
+    v_serviço = num_p * 0.20
+
+if extra == 1:
+    v_extra = 15
+elif extra == 2:
+    v_extra = 40
+else:
+    v_extra = 0
+
+total = v_serviço + v_extra
+
+print(f'Total: R$ {total:.2f} (Serviço: {v_serviço:.2f} X Páginas: {num_p} + Extra: {v_extra:.2f})')
+
+
