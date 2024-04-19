@@ -13,9 +13,17 @@ def escolha_servico():
         print('FOT - Fotocópia')
         servico = input('>> ').upper()
         if servico in ['DIG', 'ICO', 'IPB', 'FOT']:
-            return servico
+            if servico == 'DIG':
+                return 0.10
+            elif servico == 'ICO':
+                return 1.00
+            elif servico == 'IPB':
+                return 0.40
+            else:
+                return 0.20
         else:
             print('Escolha inválida, entre com o tipo do serviço novamente')
+
 
 def num_pagina():
     while True:
