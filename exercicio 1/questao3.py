@@ -26,7 +26,7 @@ def escolha_servico():
 
 
 # função de numero de paginas verifica no try except se o valor digitado é maior que 20000 e se não são letras respectivamente
-# se os dados forem validos, retorna o numero de paginas com desconto
+# se os dados forem validos, retorna o numero de paginas com desconto aplicado, sequguindo a regra para aplicar segundo quantidade de paginas
 def num_pagina():
     while True:
         try:
@@ -39,15 +39,16 @@ def num_pagina():
                 if num_p < 20:
                     return num_p
                 elif num_p < 200:
-                    return int((num_p * 15) / 100)
+                    return int((num_p * 85) / 100)
                 elif num_p < 2000:
-                    return int((num_p * 20) / 100)
+                    return int((num_p * 80) / 100)
                 else:
-                    return int((num_p * 25) / 100)
+                    return int((num_p * 75) / 100)
         except ValueError:
             print('Numero de paginas invalido, por favor tente novamente.')
 
 
+# função que pergunta se o usuario quer algum serviço extra e retorna o valor do serviço extra
 def servico_extra():
     print('Deseja adicionar algum serviço extra?')
     print('1 - Encadernação Simples - R$ 15.00')
@@ -66,10 +67,13 @@ def servico_extra():
             print('Escolha inválida, tente novamente.')
 
 
+# atribuo ao retorno de cada função um nome mais usual
 servico = escolha_servico()
 num_p = num_pagina()
 extra = servico_extra()
 
+# faço a soma dos serviços
 total = (servico * num_p) + extra
 
+# print do total do serviço, com detalhes do valor do tipo de serviço, numero de paginas, e serviço extra
 print(f'Total: R$ {total:.2f} (Serviço: {servico:.2f} X Páginas: {num_p} + Extra: {extra:.2f})')
