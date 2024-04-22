@@ -25,6 +25,8 @@ def escolha_servico():
             print('Escolha inválida, entre com o tipo do serviço novamente')
 
 
+# função de numero de paginas verifica no try except se o valor digitado é maior que 20000 e se não são letras respectivamente
+# se os dados forem validos, retorna o numero de paginas com desconto
 def num_pagina():
     while True:
         try:
@@ -37,13 +39,14 @@ def num_pagina():
                 if num_p < 20:
                     return num_p
                 elif num_p < 200:
-                    return int(num_p * 0.85)
+                    return int((num_p * 15) / 100)
                 elif num_p < 2000:
-                    return int(num_p * 0.80)
+                    return int((num_p * 20) / 100)
                 else:
-                    return int(num_p * .75)
+                    return int((num_p * 25) / 100)
         except ValueError:
-            print('Numero de paginas invalido, por favor digite um numero inteiro.')
+            print('Numero de paginas invalido, por favor tente novamente.')
+
 
 def servico_extra():
     print('Deseja adicionar algum serviço extra?')
@@ -53,32 +56,20 @@ def servico_extra():
     while True:
         s_extra = input('>> ')
         if s_extra in ['1', '2', '0']:
-            return int(s_extra)
+            if s_extra == '1':
+                return 15
+            elif s_extra == '2':
+                return 40
+            else:
+                return 0
         else:
             print('Escolha inválida, tente novamente.')
+
 
 servico = escolha_servico()
 num_p = num_pagina()
 extra = servico_extra()
 
-if servico == 'DIG':
-    v_serviço = num_p * 1.10
-elif servico == 'ICO':
-    v_serviço = num_p * 1.00
-elif servico == 'IPB':
-    v_serviço = num_p * 0.40
-else:
-    v_serviço = num_p * 0.20
+total = (servico * num_p) + extra
 
-if extra == 1:
-    v_extra = 15
-elif extra == 2:
-    v_extra = 40
-else:
-    v_extra = 0
-
-total = v_serviço + v_extra
-
-print(f'Total: R$ {total:.2f} (Serviço: {v_serviço:.2f} X Páginas: {num_p} + Extra: {v_extra:.2f})')
-
-
+print(f'Total: R$ {total:.2f} (Serviço: {servico:.2f} X Páginas: {num_p} + Extra: {extra:.2f})')
