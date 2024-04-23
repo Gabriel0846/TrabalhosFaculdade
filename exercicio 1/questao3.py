@@ -5,8 +5,7 @@ print('Bem vindo a Copiadora do Gabriel Lopes dos Santos')
 # função para seleção do serviço, upper evita case sensive e else retorna um erro caso seja escolha invalida
 def escolha_servico():
     while True:
-        print()
-        print('Entre com o tipo de serviço desejado')
+        print('\nEntre com o tipo de serviço desejado')
         print('DIG - Digitalização')
         print('ICO - Impressão Colorida')
         print('IPB - Impressão Preto e Branco')
@@ -30,11 +29,10 @@ def escolha_servico():
 def num_pagina():
     while True:
         try:
-            num_p = int(input('Digite o numero de páginas: '))
+            num_p = int(input('\nDigite o numero de páginas: '))
             if num_p >= 20000:
                 print('Não aceitamos tantas páginas de uma vez.')
                 print('Por favor, digite o numero de paginas novamente.')
-                print()
             else:
                 if num_p < 20:
                     return num_p
@@ -50,7 +48,7 @@ def num_pagina():
 
 # função que pergunta se o usuario quer algum serviço extra e retorna o valor do serviço extra
 def servico_extra():
-    print('Deseja adicionar algum serviço extra?')
+    print('\nDeseja adicionar algum serviço extra?')
     print('1 - Encadernação Simples - R$ 15.00')
     print('2 - Encadernação Capa Dura - R$ 40.00')
     print('0 - Não desejo mais nada')
