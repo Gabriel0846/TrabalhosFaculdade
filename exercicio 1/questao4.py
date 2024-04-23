@@ -82,7 +82,7 @@ def remover_livro():
     else:
         print("ID inválido.")
 
-# Menu principal
+# laço do menu principal redirecionando para as funções e encerramento do programa.
 while True:
     print('\n----------------------------------')
     print('--------- MENU PRINCIPAL ---------')
