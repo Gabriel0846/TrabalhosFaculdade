@@ -9,12 +9,12 @@ print('    |      G      |    R$ 18.00      |   R$ 20.00    |    ')
 print('     ´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´     ')
 print()
 
-# variavel global que ira receber o total do pedido
+# variavel global que ira receber e acumular o total do pedido
 Total = 0
 
 # Loop principal para fazer o pedido e verificar se é valido
 while True:
-    # input de sabor, adicionei .upper() para usuario não ter problema com case sensive
+    # input de sabor, adicionei .upper() para usuario não ter problema com case sensitive
     Sabor = input("Digite o sabor desejado (CP ou AC): ").upper()
 
     # verifica se o sabor digitado é como os exibidos na tabela, caso não for retorna invalido e retorna no loop
@@ -23,7 +23,7 @@ while True:
         print()
         continue
 
-    # mesmo principio do sabor acima
+    # mesmo principio do input de sabor acima
     Tamanho = input("Digite o tamanho desejado (P, M, ou G): ").upper()
     if Tamanho not in ['P', 'M', 'G']:
         print("Tamanho inválido. Tente novamente.")
@@ -40,7 +40,7 @@ while True:
             print('Você pediu um Cupuaçu de tamanho M: R$ 14.00')
             print()
             Total += 14
-        elif Tamanho == 'G':
+        else:
             print('Você pediu um Cupuaçu de tamanho G: R$ 18.00')
             print()
             Total += 18
@@ -53,13 +53,15 @@ while True:
             print('Você pediu um Açai de tamanho M: R$ 16.00')
             print()
             Total += 16
-        elif Tamanho == 'G':
+        else:
             print('Você pediu um Açai de tamanho G: R$ 20.00')
             print()
             Total += 20
+    else:
+        print('ERRO: um erro inesperado aconteceu')
 
     # pergunta se o usuario quer fazer mais algum pedido, caso sim retorna no loop.
-    # adicionei .upper aqui tambem para evitar problema de case sensive
+    # adicionei .upper aqui tambem para evitar problema de case sensitive
     continuar = input('Deseja pedir mais alguma coisa? (S/N): ').upper()
     if continuar != 'S':
         break
