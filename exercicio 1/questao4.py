@@ -63,8 +63,8 @@ def consultar_livro():
                     print(f'AUTOR: {livro['autor']}')
                     print(f'EDITORA: {livro['editora']}')
                     print()
-            else:
-                print("Autor não encontrado.")
+                else:
+                    print("Autor não encontrado.")
         elif opcao == '4':
             break
         else:
@@ -73,6 +73,8 @@ def consultar_livro():
 
 # função para remover um livro
 def remover_livro():
+    print('\n----------------------------------')
+    print('------- MENU REMOVER LIVRO --------')
     id = int(input("Digite o ID do livro a ser removido: "))
     for livro in lista_livro:
         if livro['id'] == id:

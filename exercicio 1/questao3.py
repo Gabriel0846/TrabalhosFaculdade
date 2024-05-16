@@ -2,7 +2,7 @@
 print('Bem vindo a Copiadora do Gabriel Lopes dos Santos')
 
 
-# função para seleção do serviço, upper evita case sensive e else retorna um erro caso seja escolha invalida
+# função para seleção do serviço, upper evita case sensitive e else retorna um erro caso seja escolha invalida
 def escolha_servico():
     while True:
         print('\nEntre com o tipo de serviço desejado')
@@ -31,8 +31,7 @@ def num_pagina():
         try:
             num_p = int(input('\nDigite o numero de páginas: '))
             if num_p >= 20000:
-                print('Não aceitamos tantas páginas de uma vez.')
-                print('Por favor, digite o numero de paginas novamente.')
+                print('Não aceitamos tantas páginas de uma vez. \nPor favor, digite o numero de paginas novamente.')
             else:
                 if num_p < 20:
                     return num_p
