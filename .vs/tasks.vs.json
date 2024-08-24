@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "tarefa-origem",
+      "appliesTo": "programa\u00E7\u00E3o estruturada/origem.cpp",
+      "type": "launch"
+    }
+  ]
+}
