@@ -8,10 +8,10 @@ int main() (
 	printf("Digite um valor para testarmos: \n");
 	scanf_s("%i", &X);
 
-	if (x % 2 == 0) { printf("O numero é par!"); }
+	if (x % 2 == 0) { printf("O numero ï¿½ par!"); }
 	else {
-		printf("O numero é impar!")
+		printf("O numero ï¿½ impar!")
 	}
 
 	returne 0;
-)
+);
