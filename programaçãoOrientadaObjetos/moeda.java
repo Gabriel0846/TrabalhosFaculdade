@@ -1,7 +1,7 @@
 package programaçãoOrientadaObjetos;
 
 abstract class Moeda {
-    private double valor;
+    protected double valor;
 
     public Moeda(double valor) {
         this.valor = valor;
@@ -11,58 +11,9 @@ abstract class Moeda {
         return valor;
     }
 
-    // metodo para conversão da moeda
+    // Método abstrato para conversão para Real
     public abstract double converterParaReal();
 
-    // metodo para fornecer informações sobre a moeda
-    public String info() {
-        return "Valor: " + getValor();
-    }
-}
-
-class Dolar extends Moeda {
-    public Dolar(double valor) {
-        super(valor);
-    }
-
-    @Override
-    public double converterParaReal() {
-        return getValor() * 6.05; // taxa de conversão para real
-    }
-
-    @Override
-    public String info() {
-        return "Dólar - " + super.info(); // metodo que retorna informações da moeda
-    }
-}
-class Euro extends Moeda {
-    public Euro(double valor) {
-        super(valor);
-    }
-
-    @Override
-    public double converterParaReal() {
-        return getValor() * 6.39; // taxa de conversão para real
-    }
-
-    @Override
-    public String info() {
-        return "Euro - " + super.info();// metodo que retorna informações da moeda
-    }
-}
-
-class Real extends Moeda {
-    public Real(double valor) {
-        super(valor);
-    }
-
-    @Override
-    public double converterParaReal() {
-        return getValor(); // valor em real já é considerado como real
-    }
-
-    @Override
-    public String info() {
-        return "Real - " + super.info(); // metodo que retorna informações da moeda
-    }
+    // Método para retornar informações sobre a moeda
+    public abstract String info();
 }

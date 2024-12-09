@@ -10,14 +10,32 @@ class Cofrinho {
         moedas = new ArrayList<>();
     }
 
+    // Método para adicionar moeda
     public void adicionarMoeda(Moeda moeda) {
-        moedas.add(moeda);
+        // Verifica se já existe uma moeda do mesmo tipo
+        boolean moedaExistente = false;
+        
+        for (Moeda m : moedas) {
+            if (m.getClass().equals(moeda.getClass())) {
+                // Se já houver, soma o valor da moeda existente
+                m.setValor(m.getValor() + moeda.getValor());
+                moedaExistente = true;
+                break; // Já encontrou a moeda, então sai do loop
+            }
+        }
+        
+        // Se a moeda não existir, adiciona uma nova moeda
+        if (!moedaExistente) {
+            moedas.add(moeda);
+        }
     }
 
+    // Método para remover moeda
     public void removerMoeda(Moeda moeda) {
         moedas.remove(moeda);
     }
 
+    // Método para listar as moedas
     public void listarMoedas() {
         if (moedas.isEmpty()) {
             System.out.println("Nenhuma moeda no cofrinho.");
@@ -27,9 +45,9 @@ class Cofrinho {
                 System.out.println(moeda.info() + " | Convertido para Real: " + moeda.converterParaReal());
             }
         }
-    }    
+    }
 
-    // metodo para mostrar valor em reais demonstrando tambem os valores da conversão
+    // Método para calcular o total em Reais
     public double calcularTotalEmReais() {
         double total = 0;
         System.out.println("Detalhamento da conversão para Reais:");
@@ -39,9 +57,9 @@ class Cofrinho {
             total += valorConvertido;
         }
         return total;
-    }    
+    }
 
-    // metodo para acessar a lista de moedas
+    // Método para acessar a lista de moedas
     public List<Moeda> getMoedas() {
         return moedas;
     }
