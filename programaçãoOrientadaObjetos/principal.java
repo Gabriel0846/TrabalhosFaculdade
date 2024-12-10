@@ -1,221 +1,100 @@
-package programaçãoOrientadaObjetos;
-
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
 
-public class principal {
+public class Principal {
+
     public static void main(String[] args) {
+        // criação de um scanner para ler entradas do usuario
         Scanner scanner = new Scanner(System.in);
+        
+        // criação do cofrinho onde as moedas serão armazenadas
         Cofrinho cofrinho = new Cofrinho();
-        int opcao;
+        
+        // variavel para controlar o loop do menu
+        boolean continuar = true;
 
-        // menu principal
-        do {
-            System.out.println("----------- MENU -----------");
-            System.out.println("1 - Adicionar moeda");
-            System.out.println("2 - Remover moeda");
-            System.out.println("3 - Listar moedas");
-            System.out.println("4 - Calcular total em Reais");
-            System.out.println("5 - Sair");
+        // laço para exibir o menu e permitir que o usuário escolha opções
+        while (continuar) {
+            // exibição do menu com opções disponíveis
+            System.out.println("\nMenu:");
+            System.out.println("1. Adicionar moeda");
+            System.out.println("2. Remover moeda");
+            System.out.println("3. Listar moedas");
+            System.out.println("4. Calcular total convertido para Real");
+            System.out.println("5. Encerrar");
             System.out.print("Escolha uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine(); // limpa o buffer do scanner
+            
+            // leitura da opção escolhida pelo usuário
+            int opcao = scanner.nextInt();
 
+            // estrutura de controle switch para tratar as opções do menu
             switch (opcao) {
                 case 1:
-                    menuAdicionarMoeda(scanner, cofrinho);
-                    break;
-                case 2:
-                    menuRemoverMoeda(scanner, cofrinho);
-                    break;
-                case 3:
-                    cofrinho.listarMoedas();
-                    pause(); // pausa para o usuário visualizar
-                    break;
-                case 4:
-                    System.out.println("Total em Reais: " + cofrinho.calcularTotalEmReais());
-                    pause(); // pausa para o usuário visualizar
-                    break;
-                case 5:
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
-                    pause(); // pausa para o usuário visualizar
-            }
-        } while (opcao != 5);
+                    // caso o usuário queira adicionar uma moeda
+                    System.out.println("\nEscolha a moeda:");
+                    System.out.println("1. Real");
+                    System.out.println("2. Dolar");
+                    System.out.println("3. Euro");
+                    int tipoMoeda = scanner.nextInt();  // leitura do tipo de moeda
+                    System.out.print("Digite o valor da moeda: ");
+                    double valor = scanner.nextDouble();  // leitura do valor da moeda
 
+                    // condicional para adicionar a moeda no cofrinho
+                    if (tipoMoeda == 1) {
+                        cofrinho.adicionarMoeda(new Real(valor));  // adiciona Real
+                    } else if (tipoMoeda == 2) {
+                        cofrinho.adicionarMoeda(new Dolar(valor));  // adiciona Dolar
+                    } else if (tipoMoeda == 3) {
+                        cofrinho.adicionarMoeda(new Euro(valor));  // adiciona Euro
+                    } else {
+                        System.out.println("Opção invalida.");
+                    }
+                    break;
+
+                case 2:
+                    // caso o usuario queira remover uma moeda
+                    System.out.println("\nEscolha a moeda para remover:");
+                    System.out.println("1. Real");
+                    System.out.println("2. Dolar");
+                    System.out.println("3. Euro");
+                    tipoMoeda = scanner.nextInt();  // leitura do tipo de moeda
+                    System.out.print("Digite o valor da moeda a ser removida: ");
+                    valor = scanner.nextDouble();  // leitura do valor da moeda a ser removida
+
+                    // condicional para remover a moeda do cofrinho
+                    if (tipoMoeda == 1) {
+                        cofrinho.removerMoeda(new Real(valor));  // remove real
+                    } else if (tipoMoeda == 2) {
+                        cofrinho.removerMoeda(new Dolar(valor));  // remove dolar
+                    } else if (tipoMoeda == 3) {
+                        cofrinho.removerMoeda(new Euro(valor));  // remove euro
+                    } else {
+                        System.out.println("Opção invalida.");
+                    }
+                    break;
+
+                case 3:
+                    // caso o usuario queira listar as moedas no cofrinho
+                    cofrinho.listarMoedas();
+                    break;
+
+                case 4:
+                    // caso o usuario queira calcular o total das moedas convertido para Real
+                    System.out.println("Total convertido para Real: " + cofrinho.calcularTotalConvertido());
+                    break;
+
+                case 5:
+                    // caso o usuario queira encerrar o programa
+                    continuar = false;  // encerra o loop
+                    System.out.println("Programa encerrado.");
+                    break;
+
+                default:
+                    // caso o usuário escolha uma opção invalida
+                    System.out.println("Opção invalida.");
+            }
+        }
+
+        // fecha o scanner após a execução do programa para liberar o recurso
         scanner.close();
     }
-
-    // função para adicionar moeda
-    private static void menuAdicionarMoeda(Scanner scanner, Cofrinho cofrinho) {
-        System.out.println("Escolha o tipo da moeda: ");
-        System.out.println("1 - Dólar");
-        System.out.println("2 - Euro");
-        System.out.println("3 - Real");
-        System.out.println("4 - Voltar");
-        System.out.print("Escolha uma opção: ");
-        int tipoMoeda = scanner.nextInt();
-        scanner.nextLine(); // limpa o buffer do scanner
-
-        if (tipoMoeda == 4) {
-            return; // volta para o menu principal
-        }
-
-        System.out.print("Digite o valor da moeda: ");
-        double valor = scanner.nextDouble();
-        scanner.nextLine(); // limpa o buffer do scanner
-
-        switch (tipoMoeda) {
-            case 1:
-                cofrinho.adicionarMoeda(new Dolar(valor));
-                break;
-            case 2:
-                cofrinho.adicionarMoeda(new Euro(valor));
-                break;
-            case 3:
-                cofrinho.adicionarMoeda(new Real(valor));
-                break;
-            default:
-                System.out.println("Opção inválida!");
-        }
-
-        pause(); // pausa para o usuário visualizar
-    }
-
-    // Função para menu de remoção de moeda
-    private static void menuRemoverMoeda(Scanner scanner, Cofrinho cofrinho) {
-        System.out.println("Escolha o tipo da moeda a ser removida: ");
-        System.out.println("1 - Dólar");
-        System.out.println("2 - Euro");
-        System.out.println("3 - Real");
-        System.out.print("Escolha uma opção: ");
-        int tipoMoeda = scanner.nextInt();
-        scanner.nextLine(); // limpa o buffer do scanner
-
-        switch (tipoMoeda) {
-            case 1:
-                removerMoedaTipo(scanner, cofrinho, Dolar.class);
-                break;
-            case 2:
-                removerMoedaTipo(scanner, cofrinho, Euro.class);
-                break;
-            case 3:
-                removerMoedaTipo(scanner, cofrinho, Real.class);
-                break;
-            default:
-                System.out.println("Opção inválida!");
-        }
-
-        pause(); // pausa para o usuário visualizar
-    }
-
-    // Método para remover moeda de um tipo específico (Dólar, Euro, Real)
-    private static void removerMoedaTipo(Scanner scanner, Cofrinho cofrinho, Class<? extends Moeda> tipoMoeda) {
-        // Lista as moedas do tipo selecionado
-        System.out.println("Lista de moedas do tipo " + tipoMoeda.getSimpleName() + ":");
-        boolean encontrouMoeda = false;
-        for (Moeda moeda : cofrinho.getMoedas()) {
-            if (tipoMoeda.isInstance(moeda)) {
-                System.out.println(moeda.info());
-                encontrouMoeda = true;
-            }
-        }
-
-        if (!encontrouMoeda) {
-            System.out.println("Não há moedas desse tipo no cofrinho.");
-            pause();
-            return;
-        }
-
-        // Solicita o valor exato da moeda para remoção
-        boolean entradaValida = false;
-        double valorRemover = 0;
-        
-        while (!entradaValida) {
-            System.out.print("Digite o valor exato da moeda que deseja remover: ");
-            String input = scanner.nextLine();  // Lê a linha inteira
-            
-            try {
-                valorRemover = Double.parseDouble(input);  // Tenta converter a entrada para double
-                entradaValida = true;  // Se conseguir, marca como entrada válida
-            } catch (NumberFormatException e) {
-                System.out.println("Valor inválido! Por favor, insira um número válido.");
-            }
-        }
-
-        // Processo de remoção
-        boolean moedaRemovida = false;
-        for (Moeda moeda : cofrinho.getMoedas()) {
-            if (tipoMoeda.isInstance(moeda) && moeda.getValor() == valorRemover) {
-                cofrinho.removerMoeda(moeda);
-                moedaRemovida = true;
-                break;
-            }
-        }
-
-        if (moedaRemovida) {
-            System.out.println("Moeda removida com sucesso!");
-        } else {
-            System.out.println("Moeda não encontrada com o valor informado.");
-        }
-
-        pause(); // Pausa para o usuário visualizar
-    }
-
-    // função de pausa
-    private static void pause() {
-        System.out.println("Pressione Enter para continuar...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
 }
-
-class Cofrinho {
-    private List<Moeda> moedas = new ArrayList<>();
-
-    // Método para adicionar moeda ao cofrinho
-    public void adicionarMoeda(Moeda moeda) {
-        for (Moeda m : moedas) {
-            if (m.getClass().equals(moeda.getClass())) {
-                // Se a moeda já existir no cofrinho, somar o valor
-                m.setValor(m.getValor() + moeda.getValor());
-                return;
-            }
-        }
-        // Se não existir, adicionar nova moeda
-        moedas.add(moeda);
-    }
-
-    // Método para listar moedas
-    public void listarMoedas() {
-        if (moedas.isEmpty()) {
-            System.out.println("O cofrinho está vazio.");
-        } else {
-            System.out.println("Moedas no cofrinho:");
-            for (Moeda moeda : moedas) {
-                System.out.println(moeda.info());
-            }
-        }
-    }
-
-    // Método para calcular o total em Reais
-    public double calcularTotalEmReais() {
-        double total = 0;
-        for (Moeda moeda : moedas) {
-            total += moeda.converterParaReal();
-        }
-        return total;
-    }
-
-    public List<Moeda> getMoedas() {
-        return moedas;
-    }
-
-    public void removerMoeda(Moeda moeda) {
-        moedas.remove(moeda);
-    }
-}
-
