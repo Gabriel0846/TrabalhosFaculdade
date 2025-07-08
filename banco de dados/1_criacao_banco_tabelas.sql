@@ -1,4 +1,4 @@
--- CRIAÇÃO DO BANCO DE DADOS
+-- CRIACAO DO BANCO DE DADOS
 CREATE DATABASE LocadoraVeiculos;
 USE LocadoraVeiculos;
 
