@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Descarte de Lixo Eletrônico - Arapongas</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <h1>EcoDescarte Arapongas</h1>
+            </div>
+            <nav class="nav">
+                <a href="/" class="active"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                <a href="/feedback"><i class="fas fa-comment-dots"></i> Feedback</a>
+                <a href="/tutoriais"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
+                <a href="https://www.instagram.com/ecodescartearapongas" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> Siga-nos
+                </a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Sidebar com informações e filtros -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-filter"></i> Filtros</h2>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="tipoDescarte"><i class="fas fa-trash"></i> Tipo de Descarte</label>
+                    <select id="tipoDescarte" class="filter-select">
+                        <option value="todos">Todos os tipos</option>
+                        <option value="eletronico">Eletrônicos</option>
+                        <option value="bateria">Baterias</option>
+                        <option value="lampada">Lâmpadas</option>
+                        <option value="pilha">Pilhas</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="buscaLocal"><i class="fas fa-search"></i> Buscar Local</label>
+                    <input type="text" id="buscaLocal" class="filter-input" placeholder="Digite um endereço...">
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-info-circle"></i> Como usar</h3>
+                    <p>Clique nos marcadores para ver informações detalhadas sobre cada ponto de coleta.</p>
+                    <p>Use os filtros para encontrar locais específicos.</p>
+                    <a href="/tutoriais" class="info-link">Veja os tutoriais completos</a>
+                </div>
+                
+                <div class="qr-card">
+                    <h3><i class="fas fa-qrcode"></i> Rede Social</h3>
+                    <p>Em breve nas redes sociais!</p>
+                    <div class="qr-placeholder">
+                        <i class="fas fa-share-alt fa-3x"></i>
+                        <p>Nos acompanhe</p>
+                    </div>
+                    <div class="social-coming-soon">
+                        <span class="coming-soon-badge">EM BREVE</span>
+                        <p>Estamos preparando nossa presença digital para melhor atendê-los!</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mapa -->
+        <section class="map-section">
+            <div class="map-header">
+                <h2><i class="fas fa-map"></i> Pontos de Coleta em Arapongas</h2>
+                <div class="map-stats">
+                    <span class="stat"><i class="fas fa-location-dot"></i> <span id="contadorPontos">0</span> pontos ativos</span>
+                    <button class="btn-location" id="localizacaoAtual">
+                        <i class="fas fa-location-crosshairs"></i> Minha localização
+                    </button>
+                </div>
+            </div>
+            
+            <div id="map"></div>
+            
+            <!-- Legenda do mapa -->
+            <div class="map-legend">
+                <h4><i class="fas fa-key"></i> Legenda:</h4>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #2ecc71;"></span>
+                        <span>Eletrônicos</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #e74c3c;"></span>
+                        <span>Baterias</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #3498db;"></span>
+                        <span>Lâmpadas</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #f39c12;"></span>
+                        <span>Pilhas</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EcoDescarte Arapongas</h3>
+                    <p>Encontre locais adequados para descarte de lixo eletrônico em nossa cidade.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ecodescartearapongas" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Úteis</h3>
+                    <a href="/">Mapa de coleta</a>
+                    <a href="/feedback">Enviar feedback</a>
+                    <a href="/tutoriais">Tutoriais</a>
+                    <a href="/admin">Área administrativa</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-envelope"></i> contato@ecodescartearapongas.org</p>
+                    <p><i class="fas fa-phone"></i> (43) 1234-5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Prefeitura de Arapongas - PR</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 EcoDescarte Arapongas. Todos os direitos reservados.</p>
+                <p>Desenvolvido com <i class="fas fa-heart"></i> para a comunidade de Arapongas</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para detalhes do ponto de coleta -->
+    <div class="modal" id="detalhesModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3 id="modalTitulo"></h3>
+                <div class="modal-rating" id="modalRating"></div>
+            </div>
+            <div class="modal-body">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Endereço:</strong> <span id="modalEndereco"></span></p>
+                <p><i class="fas fa-trash"></i> <strong>Tipo de descarte:</strong> <span id="modalTipo"></span></p>
+                <p><i class="fas fa-clock"></i> <strong>Horário:</strong> <span id="modalHorario"></span></p>
+                <p><i class="fas fa-phone"></i> <strong>Telefone:</strong> <span id="modalTelefone"></span></p>
+                
+                <div class="modal-feedback">
+                    <h4><i class="fas fa-star"></i> Avaliações</h4>
+                    <div id="modalAvaliacoes"></div>
+                    <button class="btn-feedback" onclick="window.location.href='/feedback'">
+                        <i class="fas fa-comment"></i> Deixar avaliação
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

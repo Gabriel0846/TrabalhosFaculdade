@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - EcoDescarte Arapongas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mesmo header do index.html -->
+    <header class="header">
+        <!-- ... igual ao index.html ... -->
+    </header>
+    
+    <main class="container" style="padding: 2rem 0;">
+        <h1 style="text-align: center; margin-bottom: 2rem;">
+            <i class="fas fa-comment-dots"></i> Feedback e Sugestões
+        </h1>
+        
+        <div class="feedback-container">
+            <div class="feedback-form">
+                <h2>Envie seu feedback</h2>
+                <p>Sua opinião é importante para melhorarmos nosso sistema!</p>
+                
+                <form id="formFeedback">
+                    <div class="form-group">
+                        <label for="tipoFeedback"><i class="fas fa-tag"></i> Tipo de Feedback</label>
+                        <select id="tipoFeedback" required>
+                            <option value="">Selecione...</option>
+                            <option value="sugestao">Sugestão</option>
+                            <option value="problema">Problema</option>
+                            <option value="elogio">Elogio</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pontoColeta"><i class="fas fa-map-marker-alt"></i> Ponto de Coleta (opcional)</label>
+                        <select id="pontoColeta">
+                            <option value="">Selecione um ponto...</option>
+                            {% for ponto in pontos %}
+                            <option value="{{ ponto.id }}">{{ ponto.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-star"></i> Avaliação</label>
+                        <div class="rating-stars">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
+                        <input type="hidden" id="avaliacao" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comentario"><i class="fas fa-comment"></i> Comentário</label>
+                        <textarea id="comentario" rows="5" placeholder="Descreva seu feedback aqui..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contato"><i class="fas fa-envelope"></i> Contato (opcional)</label>
+                        <input type="text" id="contato" placeholder="Email ou telefone para retorno">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Enviar Feedback
+                    </button>
+                </form>
+            </div>
+            
+            <div class="feedback-info">
+                <h2><i class="fas fa-info-circle"></i> Como funciona</h2>
+                <div class="info-card">
+                    <h3><i class="fas fa-check-circle"></i> Feedback anônimo</h3>
+                    <p>Você pode enviar feedback sem fornecer dados de contato.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-chart-line"></i> Melhorias contínuas</h3>
+                    <p>Analisamos todos os feedbacks para melhorar o sistema.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-bullhorn"></i> Compartilhe</h3>
+                    <p>Compartilhe nosso sistema com amigos e familiares.</p>
+                    <div class="social-share">
+                        <button class="btn-share">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button class="btn-share">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="qr-code">
+                    <h3><i class="fas fa-qrcode"></i> Compartilhe nosso Instagram</h3>
+                    <p>Ajude-nos a divulgar!</p>
+                    <div class="qr-placeholder">
+                        <div class="qr-image">
+                            <i class="fas fa-qrcode fa-4x"></i>
+                        </div>
+                        <p class="qr-instagram">@ecodescartearapongas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer igual ao index.html -->
+    
+    <script>
+        // Sistema de avaliação com estrelas
+        document.querySelectorAll('.rating-stars i').forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                document.getElementById('avaliacao').value = value;
+                
+                // Atualizar visual das estrelas
+                document.querySelectorAll('.rating-stars i').forEach(s => {
+                    if (s.getAttribute('data-value') <= value) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Envio do formulário
+        document.getElementById('formFeedback').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const feedbackData = {
+                ponto_coleta_id: document.getElementById('pontoColeta').value || null,
+                avaliacao: parseInt(document.getElementById('avaliacao').value),
+                comentario: document.getElementById('comentario').value,
+                tipo_feedback: document.getElementById('tipoFeedback').value,
+                contato: document.getElementById('contato').value || null
+            };
+            
+            fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Feedback enviado com sucesso! Obrigado por contribuir.');
+                document.getElementById('formFeedback').reset();
+                document.querySelectorAll('.rating-stars i').forEach(s => s.classList.remove('active'));
+                document.getElementById('avaliacao').value = '0';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao enviar feedback. Tente novamente.');
+            });
+        });
+    </script>
+    
+    <style>
+        .feedback-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .feedback-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feedback-form, .feedback-info {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group select, .form-group textarea, .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+            margin-top: 0.5rem;
+        }
+        
+        .rating-stars i {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .rating-stars i.active {
+            color: #f39c12;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .social-share {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-share {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .btn-share:nth-child(1) {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .btn-share:nth-child(2) {
+            background-color: #3b5998;
+            color: white;
+        }
+    </style>
+</body>
+</html>
