@@ -6,262 +6,399 @@
     <title>Feedback - EcoDescarte Arapongas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .feedback-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .feedback-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .feedback-header h1 {
+            color: #2ecc71;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feedback-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .feedback-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feedback-form, .feedback-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group select, 
+        .form-group textarea, 
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group select:focus, 
+        .form-group textarea:focus, 
+        .form-group input:focus {
+            border-color: #2ecc71;
+            outline: none;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+            width: 100%;
+            font-weight: 500;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        .info-card {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .info-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .qr-placeholder {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .qr-placeholder i {
+            font-size: 4rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+
+        .qr-instagram {
+            font-weight: bold;
+            color: #E1306C;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .status-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #d5f4e6;
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <!-- Mesmo header do index.html -->
+    <!-- Cabeçalho igual ao index.html -->
     <header class="header">
-        <!-- ... igual ao index.html ... -->
-    </header>
-    
-    <main class="container" style="padding: 2rem 0;">
-        <h1 style="text-align: center; margin-bottom: 2rem;">
-            <i class="fas fa-comment-dots"></i> Feedback e Sugestões
-        </h1>
-        
-        <div class="feedback-container">
-            <div class="feedback-form">
-                <h2>Envie seu feedback</h2>
-                <p>Sua opinião é importante para melhorarmos nosso sistema!</p>
-                
-                <form id="formFeedback">
-                    <div class="form-group">
-                        <label for="tipoFeedback"><i class="fas fa-tag"></i> Tipo de Feedback</label>
-                        <select id="tipoFeedback" required>
-                            <option value="">Selecione...</option>
-                            <option value="sugestao">Sugestão</option>
-                            <option value="problema">Problema</option>
-                            <option value="elogio">Elogio</option>
-                            <option value="outro">Outro</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pontoColeta"><i class="fas fa-map-marker-alt"></i> Ponto de Coleta (opcional)</label>
-                        <select id="pontoColeta">
-                            <option value="">Selecione um ponto...</option>
-                            {% for ponto in pontos %}
-                            <option value="{{ ponto.id }}">{{ ponto.nome }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label><i class="fas fa-star"></i> Avaliação</label>
-                        <div class="rating-stars">
-                            <i class="fas fa-star" data-value="1"></i>
-                            <i class="fas fa-star" data-value="2"></i>
-                            <i class="fas fa-star" data-value="3"></i>
-                            <i class="fas fa-star" data-value="4"></i>
-                            <i class="fas fa-star" data-value="5"></i>
-                        </div>
-                        <input type="hidden" id="avaliacao" value="0">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="comentario"><i class="fas fa-comment"></i> Comentário</label>
-                        <textarea id="comentario" rows="5" placeholder="Descreva seu feedback aqui..." required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="contato"><i class="fas fa-envelope"></i> Contato (opcional)</label>
-                        <input type="text" id="contato" placeholder="Email ou telefone para retorno">
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">
-                        <i class="fas fa-paper-plane"></i> Enviar Feedback
-                    </button>
-                </form>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <h1>EcoDescarte Arapongas</h1>
             </div>
-            
-            <div class="feedback-info">
-                <h2><i class="fas fa-info-circle"></i> Como funciona</h2>
-                <div class="info-card">
-                    <h3><i class="fas fa-check-circle"></i> Feedback anônimo</h3>
-                    <p>Você pode enviar feedback sem fornecer dados de contato.</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-chart-line"></i> Melhorias contínuas</h3>
-                    <p>Analisamos todos os feedbacks para melhorar o sistema.</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-bullhorn"></i> Compartilhe</h3>
-                    <p>Compartilhe nosso sistema com amigos e familiares.</p>
-                    <div class="social-share">
-                        <button class="btn-share">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
-                        </button>
-                        <button class="btn-share">
-                            <i class="fab fa-facebook"></i> Facebook
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="qr-code">
-                    <h3><i class="fas fa-qrcode"></i> Compartilhe nosso Instagram</h3>
-                    <p>Ajude-nos a divulgar!</p>
-                    <div class="qr-placeholder">
-                        <div class="qr-image">
-                            <i class="fas fa-qrcode fa-4x"></i>
+            <nav class="nav">
+                <a href="/"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                <a href="/feedback" class="active"><i class="fas fa-comment-dots"></i> Feedback</a>
+                <a href="/tutoriais"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
+                <a href="https://www.instagram.com/ecodescartearapongas" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> Siga-nos
+                </a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="feedback-container">
+            <div class="feedback-header">
+                <h1><i class="fas fa-comment-dots"></i> Feedback do Sistema</h1>
+                <p>Sua opinião é fundamental para melhorarmos o EcoDescarte Arapongas!</p>
+            </div>
+
+            <div class="feedback-content">
+                <!-- Formulário de Feedback -->
+                <div class="feedback-form">
+                    <h2><i class="fas fa-paper-plane"></i> Envie seu Feedback</h2>
+                    <p>Compartilhe suas sugestões, ideias ou problemas encontrados no sistema.</p>
+
+                    <form id="formFeedback">
+                        <div class="form-group">
+                            <label for="tipoFeedback"><i class="fas fa-tag"></i> Tipo de Feedback *</label>
+                            <select id="tipoFeedback" required>
+                                <option value="">Selecione o tipo...</option>
+                                <option value="sugestao">Sugestão de Melhoria</option>
+                                <option value="problema">Relato de Problema</option>
+                                <option value="elogio">Elogio</option>
+                                <option value="duvida">Dúvida</option>
+                                <option value="outro">Outro</option>
+                            </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="comentario"><i class="fas fa-comment"></i> Sua Mensagem *</label>
+                            <textarea id="comentario" rows="6" 
+                                      placeholder="Descreva detalhadamente seu feedback, sugestão ou problema encontrado..." 
+                                      required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contato"><i class="fas fa-envelope"></i> Contato (opcional)</label>
+                            <input type="text" id="contato" 
+                                   placeholder="Email ou telefone caso queira que entremos em contato">
+                            <small style="color: #666; font-size: 0.9rem;">Preencha apenas se desejar resposta</small>
+                        </div>
+
+                        <!-- Mensagem de status -->
+                        <div id="statusMessage" class="status-message"></div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Enviar Feedback
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Informações sobre Feedback -->
+                <div class="feedback-info">
+                    <h2><i class="fas fa-info-circle"></i> Sobre o Feedback</h2>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-user-shield"></i> Privacidade</h3>
+                        <p>Seu feedback pode ser enviado de forma anônima. Dados de contato são opcionais e serão usados apenas para retorno se necessário.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-sync-alt"></i> Processamento</h3>
+                        <p>Todos os feedbacks são analisados pela equipe administrativa para implementação de melhorias contínuas no sistema.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3><i class="fas fa-bullhorn"></i> Compartilhamento</h3>
+                        <p>Ajude a divulgar o sistema! Compartilhe com amigos, familiares e colegas de trabalho.</p>
+                    </div>
+
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                        <h3>Nos Acompanhe</h3>
+                        <p>Em breve nas redes sociais!</p>
                         <p class="qr-instagram">@ecodescartearapongas</p>
+                        <small style="color: #666; margin-top: 1rem; display: block;">
+                            QR Code para redes sociais em breve disponível
+                        </small>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    
+
     <!-- Footer igual ao index.html -->
-    
-    <script>
-        // Sistema de avaliação com estrelas
-        document.querySelectorAll('.rating-stars i').forEach(star => {
-            star.addEventListener('click', function() {
-                const value = this.getAttribute('data-value');
-                document.getElementById('avaliacao').value = value;
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EcoDescarte Arapongas</h3>
+                    <p>Encontre locais adequados para descarte de lixo eletrônico em nossa cidade.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ecodescartearapongas" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
                 
-                // Atualizar visual das estrelas
-                document.querySelectorAll('.rating-stars i').forEach(s => {
-                    if (s.getAttribute('data-value') <= value) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
+                <div class="footer-section">
+                    <h3>Links Úteis</h3>
+                    <a href="/">Mapa de coleta</a>
+                    <a href="/feedback">Enviar feedback</a>
+                    <a href="/tutoriais">Tutoriais</a>
+                    <a href="/admin">Área administrativa</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-envelope"></i> contato@ecodescartearapongas.org</p>
+                    <p><i class="fas fa-phone"></i> (43) 1234-5678</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 EcoDescarte Arapongas. Todos os direitos reservados.</p>
+                <p>Desenvolvido com <i class="fas fa-heart"></i> para a comunidade de Arapongas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu responsivo
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const nav = document.querySelector('.nav');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    nav.classList.toggle('active');
                 });
-            });
+            }
         });
-        
-        // Envio do formulário
-        document.getElementById('formFeedback').addEventListener('submit', function(e) {
+
+        // Envio do formulário de feedback
+        document.getElementById('formFeedback').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            // Desabilita o botão durante o envio
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            // Limpa mensagem anterior
+            statusMessage.className = 'status-message';
+            statusMessage.textContent = '';
+            
             const feedbackData = {
-                ponto_coleta_id: document.getElementById('pontoColeta').value || null,
-                avaliacao: parseInt(document.getElementById('avaliacao').value),
+                avaliacao: 0, // Sem avaliação por estrelas
                 comentario: document.getElementById('comentario').value,
                 tipo_feedback: document.getElementById('tipoFeedback').value,
-                contato: document.getElementById('contato').value || null
+                contato: document.getElementById('contato').value || null,
+                ponto_coleta_id: null // Sem ponto específico
             };
             
-            fetch('/api/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(feedbackData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Feedback enviado com sucesso! Obrigado por contribuir.');
-                document.getElementById('formFeedback').reset();
-                document.querySelectorAll('.rating-stars i').forEach(s => s.classList.remove('active'));
-                document.getElementById('avaliacao').value = '0';
-            })
-            .catch(error => {
+            try {
+                const response = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(feedbackData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Mostra mensagem de sucesso
+                    statusMessage.className = 'status-message success';
+                    statusMessage.innerHTML = `
+                        <i class="fas fa-check-circle"></i> 
+                        <strong>Feedback enviado com sucesso!</strong>
+                        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Obrigado por contribuir com o EcoDescarte Arapongas!</p>
+                    `;
+                    
+                    // Reseta o formulário
+                    document.getElementById('formFeedback').reset();
+                    
+                    // Rola até a mensagem de sucesso
+                    statusMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Esconde a mensagem após 5 segundos
+                    setTimeout(() => {
+                        statusMessage.className = 'status-message';
+                        statusMessage.textContent = '';
+                    }, 5000);
+                    
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erro ao enviar feedback');
+                }
+                
+            } catch (error) {
                 console.error('Erro:', error);
-                alert('Erro ao enviar feedback. Tente novamente.');
-            });
+                
+                // Mostra mensagem de erro
+                statusMessage.className = 'status-message error';
+                statusMessage.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <strong>Erro ao enviar feedback</strong>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">${error.message}. Tente novamente.</p>
+                `;
+                
+                // Rola até a mensagem de erro
+                statusMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+            } finally {
+                // Reabilita o botão
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Feedback';
+            }
         });
     </script>
-    
-    <style>
-        .feedback-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .feedback-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .feedback-form, .feedback-info {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group select, .form-group textarea, .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .rating-stars {
-            display: flex;
-            gap: 5px;
-            margin-top: 0.5rem;
-        }
-        
-        .rating-stars i {
-            font-size: 1.5rem;
-            color: #ddd;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .rating-stars i.active {
-            color: #f39c12;
-        }
-        
-        .btn-submit {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .social-share {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .btn-share {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        
-        .btn-share:nth-child(1) {
-            background-color: #25D366;
-            color: white;
-        }
-        
-        .btn-share:nth-child(2) {
-            background-color: #3b5998;
-            color: white;
-        }
-    </style>
 </body>
 </html>

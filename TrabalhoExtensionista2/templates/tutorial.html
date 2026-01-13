@@ -6,6 +6,7 @@
     <title>Tutoriais - EcoDescarte Arapongas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         .tutorials-container {
             max-width: 1200px;
@@ -159,17 +160,32 @@
             border-radius: 10px;
         }
 
-        .qr-code {
-            display: inline-block;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 10px;
-            margin: 1rem 0;
+        .social-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
-        .qr-code i {
-            font-size: 5rem;
-            color: #2c3e50;
+        .social-option {
+            text-align: center;
+            padding: 1.5rem;
+            min-width: 150px;
+        }
+
+        .social-option i {
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon {
+            background: #2ecc71;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: inline-block;
         }
 
         .download-links {
@@ -182,6 +198,7 @@
             border-radius: 10px;
             margin-bottom: 1rem;
             border-left: 4px solid #2ecc71;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .download-card h4 {
@@ -189,209 +206,228 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 0.5rem;
+            color: #2c3e50;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <i class="fas fa-recycle"></i>
-            <h1>EcoDescarte Arapongas</h1>
+    <!-- Cabeçalho (igual ao index.html) -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <h1>EcoDescarte Arapongas</h1>
+            </div>
+            <nav class="nav">
+                <a href="/"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                <a href="/feedback"><i class="fas fa-comment-dots"></i> Feedback</a>
+                <a href="/tutoriais" class="active"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
+                <a href="https://www.instagram.com/ecodescartearapongas" target="_blank" class="instagram-btn">
+                    <i class="fab fa-instagram"></i> Siga-nos
+                </a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <nav class="nav">
-            <a href="/"><i class="fas fa-map-marker-alt"></i> Mapa</a>
-            <a href="/feedback"><i class="fas fa-comment-dots"></i> Feedback</a>
-            <a href="/tutoriais" class="active"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
-            <a href="/admin"><i class="fas fa-cog"></i> Admin</a>
-        </nav>
-    </div>
+    </header>
 
-    <div class="tutorials-container">
-        <div class="tutorial-header">
-            <h1><i class="fas fa-graduation-cap"></i> Tutoriais e Guias</h1>
-            <p>Aprenda a usar o sistema e ajude a divulgar o projeto</p>
-        </div>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="tutorials-container">
+            <div class="tutorial-header">
+                <h1><i class="fas fa-graduation-cap"></i> Tutoriais e Guias</h1>
+                <p>Aprenda a usar o sistema e ajude a divulgar o projeto</p>
+            </div>
 
-        <div class="tutorial-grid">
-            <!-- Tutorial 1 -->
-            <div class="tutorial-card">
-                <h3><i class="fas fa-map"></i> Como usar o mapa</h3>
-                <p>Siga estes passos para encontrar pontos de coleta:</p>
-                <div class="steps">
-                    <div class="step">
-                        <span class="step-number">1</span>
-                        <span>Abra o mapa na página inicial</span>
+            <div class="tutorial-grid">
+                <!-- Tutorial 1 -->
+                <div class="tutorial-card">
+                    <h3><i class="fas fa-map"></i> Como usar o mapa</h3>
+                    <p>Siga estes passos para encontrar pontos de coleta:</p>
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <span>Abra o mapa na página inicial</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <span>Clique nos marcadores coloridos para ver informações</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <span>Use o filtro para encontrar tipos específicos de coleta</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <span>Clique em "Minha localização" para encontrar pontos próximos</span>
+                        </div>
                     </div>
-                    <div class="step">
-                        <span class="step-number">2</span>
-                        <span>Clique nos marcadores coloridos para ver informações</span>
+                </div>
+
+                <!-- Tutorial 2 -->
+                <div class="tutorial-card">
+                    <h3><i class="fas fa-mobile-alt"></i> Acessar pelo celular</h3>
+                    <p>O sistema é totalmente responsivo e funciona perfeitamente em dispositivos móveis:</p>
+                    <div class="steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <span>Abra o navegador do seu celular</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <span>Acesse: <strong>http://ecodescartearapongas.org</strong></span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <span>Para melhor experiência, adicione à tela inicial</span>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">4</span>
+                            <span>Compartilhe o link com amigos e familiares</span>
+                        </div>
                     </div>
-                    <div class="step">
-                        <span class="step-number">3</span>
-                        <span>Use os filtros para encontrar tipos específicos de coleta</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">4</span>
-                        <span>Clique em "Minha localização" para encontrar pontos próximos</span>
+                </div>
+
+                <!-- Tutorial 3 -->
+                <div class="tutorial-card">
+                    <h3><i class="fas fa-trash"></i> Tipos de lixo eletrônico</h3>
+                    <p>Saiba o que pode ser descartado nos pontos de coleta:</p>
+                    <div class="steps">
+                        <div class="step">
+                            <i class="fas fa-laptop" style="color: #2ecc71;"></i>
+                            <span><strong>Eletrônicos:</strong> Computadores, celulares, tablets</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-car-battery" style="color: #e74c3c;"></i>
+                            <span><strong>Baterias:</strong> Baterias de notebook, de celular</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-battery-half" style="color: #f39c12;"></i>
+                            <span><strong>Pilhas:</strong> Pilhas AA, AAA, recarregáveis</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-lightbulb" style="color: #3498db;"></i>
+                            <span><strong>Lâmpadas:</strong> Fluorescentes, LED, econômicas</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tutorial 2 -->
-            <div class="tutorial-card">
-                <h3><i class="fas fa-mobile-alt"></i> Acessar pelo celular</h3>
-                <p>O sistema é totalmente responsivo e funciona perfeitamente em dispositivos móveis:</p>
-                <div class="steps">
-                    <div class="step">
-                        <span class="step-number">1</span>
-                        <span>Abra o navegador do seu celular</span>
+            <!-- Seção de Vídeos -->
+            <div class="video-container">
+                <h2><i class="fas fa-video"></i> Vídeos Explicativos</h2>
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <h3>Vídeos em breve!</h3>
+                    <p>Estamos produzindo vídeos tutoriais para facilitar o uso do sistema.</p>
+                    <p>Em breve disponíveis no nosso Instagram!</p>
+                </div>
+            </div>
+
+            <!-- QR Code para Instagram -->
+            <div class="qr-section">
+                <h2><i class="fas fa-share-alt"></i> Presença Digital</h2>
+                <p>Em breve estaremos nas redes sociais para melhor comunicação:</p>
+                
+                <div class="social-options">
+                    <div class="social-option">
+                        <i class="fab fa-instagram fa-3x" style="color: #E1306C;"></i>
+                        <p><strong>Instagram</strong></p>
+                        <p class="coming-soon">Em Breve</p>
                     </div>
-                    <div class="step">
-                        <span class="step-number">2</span>
-                        <span>Acesse: <strong>http://ecodescartearapongas.org</strong></span>
+                    <div class="social-option">
+                        <i class="fab fa-facebook fa-3x" style="color: #1877F2;"></i>
+                        <p><strong>Facebook</strong></p>
+                        <p class="coming-soon">Em Breve</p>
                     </div>
-                    <div class="step">
-                        <span class="step-number">3</span>
-                        <span>Para melhor experiência, adicione à tela inicial</span>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">4</span>
-                        <span>Compartilhe o link com amigos e familiares</span>
+                    <div class="social-option">
+                        <i class="fab fa-whatsapp fa-3x" style="color: #25D366;"></i>
+                        <p><strong>WhatsApp</strong></p>
+                        <p class="coming-soon">Em Breve</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Tutorial 3 -->
-            <div class="tutorial-card">
-                <h3><i class="fas fa-trash"></i> Tipos de lixo eletrônico</h3>
-                <p>Saiba o que pode ser descartado nos pontos de coleta:</p>
-                <div class="steps">
-                    <div class="step">
-                        <i class="fas fa-laptop" style="color: #2ecc71;"></i>
-                        <span><strong>Eletrônicos:</strong> Computadores, celulares, tablets</span>
-                    </div>
-                    <div class="step">
-                        <i class="fas fa-car-battery" style="color: #e74c3c;"></i>
-                        <span><strong>Baterias:</strong> Baterias de notebook, de celular</span>
-                    </div>
-                    <div class="step">
-                        <i class="fas fa-battery-half" style="color: #f39c12;"></i>
-                        <span><strong>Pilhas:</strong> Pilhas AA, AAA, recarregáveis</span>
-                    </div>
-                    <div class="step">
-                        <i class="fas fa-lightbulb" style="color: #3498db;"></i>
-                        <span><strong>Lâmpadas:</strong> Fluorescentes, LED, econômicas</span>
-                    </div>
+            <!-- Material para Divulgação -->
+            <div class="download-links">
+                <h2><i class="fas fa-download"></i> Material para Divulgação</h2>
+                
+                <div class="download-card">
+                    <h4><i class="fas fa-file-pdf"></i> Panfleto Digital</h4>
+                    <p>Baixe o panfleto para impressão com QR Code</p>
+                    <button class="social-btn" onclick="downloadFile('panfleto')">
+                        <i class="fas fa-download"></i> Baixar PDF
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Seção de Vídeos -->
-        <div class="video-container">
-            <h2><i class="fas fa-video"></i> Vídeos Explicativos</h2>
-            <div class="video-placeholder">
-                <i class="fas fa-play-circle"></i>
-                <h3>Vídeos em breve!</h3>
-                <p>Estamos produzindo vídeos tutoriais para facilitar o uso do sistema.</p>
-                <p>Em breve disponíveis no nosso Instagram!</p>
-            </div>
-        </div>
-
-        <!-- QR Code para Instagram -->
-        <div class="qr-section">
-            <h2><i class="fas fa-share-alt"></i> Presença Digital</h2>
-            <p>Em breve estaremos nas redes sociais para melhor comunicação:</p>
-            
-            <div class="social-options">
-                <div class="social-option">
-                    <i class="fab fa-instagram fa-3x" style="color: #E1306C;"></i>
-                    <p><strong>Instagram</strong></p>
-                    <p class="coming-soon">Em Breve</p>
-                </div>
-                <div class="social-option">
-                    <i class="fab fa-facebook fa-3x" style="color: #1877F2;"></i>
-                    <p><strong>Facebook</strong></p>
-                    <p class="coming-soon">Em Breve</p>
-                </div>
-                <div class="social-option">
-                    <i class="fab fa-whatsapp fa-3x" style="color: #25D366;"></i>
-                    <p><strong>WhatsApp</strong></p>
-                    <p class="coming-soon">Em Breve</p>
-                </div>
-            </div>
-            
-            <div class="newsletter-signup">
-                <h3><i class="fas fa-envelope"></i> Fique por dentro!</h3>
-                <p>Cadastre-se para receber novidades:</p>
-                <div class="newsletter-form">
-                    <input type="email" id="newsletterEmail" placeholder="Seu melhor email">
-                    <button onclick="signupNewsletter()">Cadastrar</button>
+            <!-- Compartilhar nas redes sociais -->
+            <div class="social-share">
+                <h3><i class="fas fa-share-alt"></i> Ajude a Divulgar!</h3>
+                <p>Compartilhe o projeto nas suas redes sociais:</p>
+                
+                <div class="social-buttons">
+                    <button class="social-btn share-generic" onclick="shareProject()">
+                        <i class="fas fa-share-alt"></i> Compartilhar Projeto
+                    </button>
+                    <button class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
+                    </button>
                 </div>
             </div>
         </div>
-        <!-- Material para Divulgação -->
-        <div class="download-links">
-            <h2><i class="fas fa-download"></i> Material para Divulgação</h2>
-            
-            <div class="download-card">
-                <h4><i class="fas fa-file-pdf"></i> Panfleto Digital</h4>
-                <p>Baixe o panfleto para impressão com QR Code</p>
-                <button class="social-btn" onclick="downloadFile('panfleto')">
-                    <i class="fas fa-download"></i> Baixar PDF
-                </button>
-            </div>
+    </main>
 
-            <div class="download-card">
-                <h4><i class="fas fa-qrcode"></i> QR Codes</h4>
-                <p>Coleção de QR Codes para diferentes tipos de conteúdo</p>
-                <button class="social-btn" onclick="downloadFile('qrcodes')">
-                    <i class="fas fa-download"></i> Baixar ZIP
-                </button>
-            </div>
-        </div>
-
-        <!-- Compartilhar nas redes sociais -->
-        <div class="social-share">
-            <h3><i class="fas fa-share-alt"></i> Ajude a Divulgar!</h3>
-            <p>Compartilhe o projeto nas suas redes sociais:</p>
-            
-            <div class="social-buttons">
-                <button class="social-btn share-generic" onclick="shareProject()">
-                    <i class="fas fa-share-alt"></i> Compartilhar Projeto
-                </button>
-                <button class="social-btn whatsapp" onclick="shareOnWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Compartilhar no WhatsApp
-                </button>
-            </div>
-        </div>
-    </div>
-
+    <!-- Footer (igual ao index.html) -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>EcoDescarte Arapongas</h3>
-                <p>Projeto de extensão universitária para descarte consciente.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contato</h3>
-                <p><i class="fas fa-envelope"></i> contato@ecodescartearapongas.org</p>
-                <p><i class="fas fa-phone"></i> (43) 3333-7777</p>
-            </div>
-            <div class="footer-section">
-                <h3>Redes Sociais</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EcoDescarte Arapongas</h3>
+                    <p>Encontre locais adequados para descarte de lixo eletrônico em nossa cidade.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ecodescartearapongas" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Úteis</h3>
+                    <a href="/">Mapa de coleta</a>
+                    <a href="/feedback">Enviar feedback</a>
+                    <a href="/tutoriais">Tutoriais</a>
+                    <a href="/admin">Área administrativa</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-envelope"></i> contato@ecodescartearapongas.org</p>
+                    <p><i class="fas fa-phone"></i> (43) 1234-5678</p>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 EcoDescarte Arapongas. Todos os direitos reservados.</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 EcoDescarte Arapongas. Todos os direitos reservados.</p>
+                <p>Desenvolvido com <i class="fas fa-heart"></i> para a comunidade de Arapongas</p>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Menu responsivo
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const nav = document.querySelector('.nav');
+            
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                });
+            }
+        });
+
         function shareProject() {
             const text = "🌱♻️ Conheça o EcoDescarte Arapongas!\n\nEncontre pontos de coleta de lixo eletrônico em nossa cidade.\n\n📍 Acesse o mapa: http://localhost:5000\n\nAjude a preservar o meio ambiente! #Reciclagem #Arapongas #Sustentabilidade #LixoEletronico";
             
@@ -407,17 +443,6 @@
             }
         }
         
-        function signupNewsletter() {
-            const email = document.getElementById('newsletterEmail').value;
-            if (email && email.includes('@')) {
-                alert(`Obrigado por se cadastrar! Enviaremos novidades para: ${email}`);
-                document.getElementById('newsletterEmail').value = '';
-                // Aqui você implementaria o salvamento no banco de dados
-            } else {
-                alert('Por favor, insira um email válido.');
-            }
-        }
-
         function shareOnWhatsApp() {
             const text = encodeURIComponent("Conheça o EcoDescarte Arapongas! Encontre pontos de coleta de lixo eletrônico em nossa cidade. 🌱♻️\n\nAcesse: http://localhost:5000");
             window.open(`https://wa.me/?text=${text}`, '_blank');
@@ -429,24 +454,6 @@
             } else if (type === 'qrcodes') {
                 alert("QR Codes estarão disponíveis em breve!");
             }
-        }
-
-        // Efeito nas estrelas (se houver)
-        document.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('mouseover', function() {
-                const value = this.getAttribute('data-value');
-                highlightStars(value);
-            });
-        });
-
-        function highlightStars(value) {
-            document.querySelectorAll('.star').forEach(star => {
-                if (star.getAttribute('data-value') <= value) {
-                    star.style.color = '#f39c12';
-                } else {
-                    star.style.color = '#ddd';
-                }
-            });
         }
     </script>
 </body>
