@@ -1,8 +1,11 @@
 #include <stdio.h>
-#include <locale.h>
 
 int main() {
-	printf("ola mundo!");
+	int idade;
+
+	printf("digite sua idade: ");
+	scanf("%d", &idade);
+	printf("minha idade eh de %d", idade);
 	
 	return 0;
 };
