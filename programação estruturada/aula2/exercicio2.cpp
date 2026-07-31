@@ -37,7 +37,7 @@ int main(){
     int jaexibido[5] = {0};
 
     for (i = 0; i < 5; i++){
-        for (j = 0; i < 5; j++){    
+        for (j = 0; j < 5; j++){    
             if (strcmp(cargos[i], cargos[j]) == 0) {
                 encontrouduplicado = 1;
 
