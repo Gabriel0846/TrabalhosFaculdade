@@ -10,10 +10,10 @@ int main(){
     struct pessoa pessoas[5];
 
     for (int i = 0; i < 5; i++){
-        printf("digite o nome da pessoa %d", i + 1);
+        printf("digite o nome da pessoa: %d", i + 1);
         scanf("%s", pessoas[i].nome);
 
-        printf("digite a idade da pessoa %d", i + 1);
+        printf("digite a idade da pessoa: %d", i + 1);
         scanf("%d", &pessoas[i].idade);
     }
 
