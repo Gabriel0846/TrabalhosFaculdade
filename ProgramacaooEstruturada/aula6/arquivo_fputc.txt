@@ -1,0 +1,1 @@
+gravando uma nova mensagem no arquivo usando fputc()
