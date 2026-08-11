@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "mathlib.h"
+#include "matematica.h"
 
 int main(){
     int a = 5, b = 3;
