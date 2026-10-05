@@ -24,7 +24,7 @@ public class Principal {
         System.out.printf("Peso: %.2f\n", peso);
 
         if(idade <18){
-            System.out,println("Acesso bloqueado");
+            System.out.println("Acesso bloqueado");
         }
         else if (idade <65) {
             System.out.println("Adulto");
