@@ -1,22 +1,21 @@
+import java.util.ArrayList;
+
 public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+    public static void main(String[] args) {
         Aluno a = new Aluno();
-        a.matricula=1001;
+        a.cpf="111.222.333-44";
         a.nome="Super Mario";
-        a.cpf="111222333";
-
-        Aluno b = new Aluno();
-        b.matricula=1002;
-        b.nome="Yoshi";
-        b.cpf="777222555";
-
+        a.matricula=1001;
         a.info();
 
-        a.nome="Super Luigi";
-
-        a.info();
-
+        Aluno b = new Aluno(1002, "Super Luigi", "222.333.444-55");
         b.info();
+        
+        Aluno c = new Aluno(1003);
+
+        ArrayList<Aluno> alunos = new ArrayList<>();
+
+        alunos.add(c);
+        alunos.add(new Aluno(1004, "Bowser", "666.777.888-99"));
     }
 }
