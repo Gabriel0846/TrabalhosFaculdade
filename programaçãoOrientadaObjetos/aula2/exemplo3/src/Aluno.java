@@ -12,7 +12,7 @@ public class Aluno {
     void info(){
         System.out.println("Nome: " + nome);
         System.out.println("Curso: " + curso);
-        System.out.println("Media A: ", + notas.mediaAritimetica());
-        System.out.println("Media P: ", + notas.mediaPonderada());
+        System.out.println("Media A: " + notas.mediaAritimetica());
+        System.out.println("Media P: " + notas.mediaPonderada());
     }
 }
