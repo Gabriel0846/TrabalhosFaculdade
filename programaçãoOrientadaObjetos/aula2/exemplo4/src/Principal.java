@@ -2,6 +2,7 @@ public class Principal {
 
     public static void main(String[] args) {
         Conta c1 = new Conta(111, "Mario", 2000, 500);
+        Conta c2 = new Conta(222, "Luigi", 2000, 500);
 
         c1.info();
 
@@ -13,6 +14,11 @@ public class Principal {
         };
         System.out.println();
         c1.info();
+
+        c1.transferir(200, c2);
+        c1.info();
+        System.out.println();
+        c2.info();
     }
 
 }

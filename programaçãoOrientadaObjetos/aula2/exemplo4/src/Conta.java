@@ -27,6 +27,15 @@ public class Conta {
         return true;
     }
 
+    boolean transferir(double valor, Conta destino){
+        if(valor>limite || valor>saldo || valor<=0 || destino == null){
+            return false;
+        }
+        saldo -= valor;
+        destino.saldo += valor;
+        return true;
+    }
+
     void info(){
         System.out.println("Nome: " + titular);
         System.out.println("Numero: " + numero);
