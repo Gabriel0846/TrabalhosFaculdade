@@ -1,0 +1,7 @@
+-- CONSULTA PARA VALOR TOTAL ARRECADADO
+SELECT 
+    SUM(p.valorTotal) AS TOTAL_ARRECADADO
+FROM 
+    Pagamento p
+WHERE 
+    p.estado = 'PAGO';

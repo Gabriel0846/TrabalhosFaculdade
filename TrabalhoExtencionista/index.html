@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mapa de Descarte de Lixo Eletrônico</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      // cria o mapa e definir a visualizacao inicial
+      const map = L.map('map').setView([-23.413, -51.426], 12); // centraliza em Arapongas
+
+      // adicionar o tile layer do OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      // URL para o arquivo JSON gerado pelo Google Script
+      const jsonUrl = "https://script.googleusercontent.com/macros/echo?user_content_key=1zFMAyy87e7QZDmEO3cDgYsAfgSLuByYBMjzF8YlgkapWFsfoiiWyQHjZp_bR1FKYcLzfHhqFZZhSVYyt8W1P7obGhVie981m5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnAGpWPi14hPyBxf6Gq6ks5VhGMpJpy0lsAQmjLuPghnlrhMyX1ezwljSJU7n1q-7UeKzxVbsEsNv5iwU7llZT0emIu8Y3xJBd9z9Jw9Md8uu&lib=MVNmukVjqL9fuphoPbNUv8idEyp6fzAUu"; // Substitua pela URL do seu script do Google Apps
+
+      // buscar os dados do JSON e adicionar marcadores no mapa
+      fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+          data.forEach(point => {
+            const nome = point["Nome do local de coleta"];
+            const endereco = point["Endereço do local de coleta"];
+            const tipoDeDescarte = point["Tipo de descarte"];
+            const latitude = point["Latitude"];
+            const longitude = point["Longitude"];
+
+            if (latitude && longitude) {
+              const marker = L.marker([latitude, longitude]).addTo(map);
+              marker.bindPopup(`
+                <strong>${nome}</strong><br>
+                ${endereco}<br>
+                <strong>Tipo de Descarte:</strong> ${tipoDeDescarte}
+              `);
+            }
+          });
+        })
+        .catch(error => console.log('Erro ao carregar os dados:', error));
+    </script>
+  </body>
+</html>

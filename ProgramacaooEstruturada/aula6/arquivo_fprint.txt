@@ -1,0 +1,3 @@
+idade: 25
+peso: 75.50
+nome: João Silva
