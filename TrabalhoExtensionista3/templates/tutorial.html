@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoriais - EcoDescarte Arapongas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><i class="fas fa-recycle"></i><h1>EcoDescarte Arapongas</h1></div>
+            <nav class="nav">
+                <a href="/"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                <a href="/feedback"><i class="fas fa-comment-dots"></i> Feedback</a>
+                <a href="/tutoriais" class="active"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content" style="display:block; padding: 40px 20px;">
+        <div style="max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px;">
+            <h1><i class="fas fa-graduation-cap"></i> Tutoriais e Guias</h1>
+            <p style="margin-top:10px;">Aprenda a usar o sistema e ajude a divulgar o projeto.</p>
+            
+            <h3 style="margin-top:30px;">Como usar o mapa</h3>
+            <ol style="line-height:2;">
+                <li>Abra o mapa na página inicial</li>
+                <li>Clique nos marcadores coloridos</li>
+                <li>Use o filtro lateral para achar o tipo de descarte</li>
+            </ol>
+
+            <div style="margin-top: 40px; text-align: center; background: #2ecc71; padding: 20px; border-radius: 10px; color: white;">
+                <h3>Ajude a Divulgar!</h3>
+                <p>Compartilhe o projeto nas suas redes sociais.</p>
+                <button onclick="shareProject()" style="margin-top:15px; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; font-weight:bold;"><i class="fas fa-share-alt"></i> Compartilhar</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function shareProject() {
+            // CORREÇÃO DA URL LOCALHOST
+            const url = window.location.origin; 
+            const text = `🌱♻️ Conheça o EcoDescarte Arapongas!\n\nAcesse o mapa: ${url}`;
+            
+            if (navigator.share) {
+                navigator.share({ title: 'EcoDescarte', text: text, url: url });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('Link copiado para a área de transferência!');
+            }
+        }
+    </script>
+</body>
+</html>

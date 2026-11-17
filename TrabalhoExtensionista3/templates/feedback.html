@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Feedback - EcoDescarte Arapongas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .feedback-container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .feedback-header { text-align: center; margin-bottom: 3rem; }
+        .feedback-header h1 { color: #2ecc71; font-size: 2.5rem; }
+        .feedback-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .feedback-content { grid-template-columns: 1fr; } }
+        .feedback-form, .feedback-info { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #2c3e50; }
+        .form-group select, .form-group textarea, .form-group input { width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-family: 'Roboto', sans-serif; }
+        .btn-submit { background: #2ecc71; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; cursor: pointer; width: 100%; font-weight: 500; }
+        .info-card { margin-bottom: 1.5rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #2ecc71; }
+        .toast { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; font-weight: bold; z-index: 10000; animation: slideIn 0.3s ease; }
+        .toast-success { background: #2ecc71; } .toast-error { background: #e74c3c; }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><i class="fas fa-recycle"></i><h1>EcoDescarte Arapongas</h1></div>
+            <nav class="nav" id="nav">
+                <a href="/"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+                <a href="/feedback" class="active"><i class="fas fa-comment-dots"></i> Feedback</a>
+                <a href="/tutoriais"><i class="fas fa-graduation-cap"></i> Tutoriais</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="feedback-container">
+            <div class="feedback-header">
+                <h1><i class="fas fa-comment-dots"></i> Feedback do Sistema</h1>
+            </div>
+            <div class="feedback-content">
+                <div class="feedback-form">
+                    <h2><i class="fas fa-paper-plane"></i> Envie seu Feedback</h2>
+                    <form id="formFeedback">
+                        <div class="form-group">
+                            <label for="tipoFeedback"><i class="fas fa-tag"></i> Tipo de Feedback *</label>
+                            <select id="tipoFeedback" required>
+                                <option value="">Selecione...</option>
+                                <option value="sugestao">Sugestão</option>
+                                <option value="problema">Problema</option>
+                                <option value="elogio">Elogio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comentario"><i class="fas fa-comment"></i> Sua Mensagem *</label>
+                            <textarea id="comentario" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="contato"><i class="fas fa-envelope"></i> Contato (opcional)</label>
+                            <input type="text" id="contato">
+                        </div>
+                        <button type="submit" class="btn-submit" id="submitBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
+                    </form>
+                </div>
+                <div class="feedback-info">
+                    <h2><i class="fas fa-info-circle"></i> Sobre o Feedback</h2>
+                    <div class="info-card"><h3><i class="fas fa-user-shield"></i> Privacidade</h3><p>Seu feedback pode ser enviado de forma anônima.</p></div>
+                    <div class="info-card"><h3><i class="fas fa-sync-alt"></i> Processamento</h3><p>Todos os feedbacks são analisados pela equipe.</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom"><p>&copy; 2026 EcoDescarte Arapongas.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.setAttribute('role', 'status');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        document.getElementById('formFeedback').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            const feedbackData = {
+                avaliacao: 0,
+                comentario: document.getElementById('comentario').value,
+                tipo_feedback: document.getElementById('tipoFeedback').value,
+                contato: document.getElementById('contato').value || null,
+                ponto_coleta_id: null
+            };
+            
+            try {
+                const response = await fetch('/api/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken // SEGURANÇA
+                    },
+                    body: JSON.stringify(feedbackData)
+                });
+                
+                if (response.ok) {
+                    showToast('Feedback enviado com sucesso!');
+                    this.reset();
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erro ao enviar');
+                }
+            } catch (error) {
+                showToast('Erro: ' + error.message, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar';
+            }
+        });
+    </script>
+</body>
+</html>
