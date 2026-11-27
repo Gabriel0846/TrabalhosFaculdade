@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position</title>
+    <style>
+        div.static{
+            position: static;
+            border: 3px solid #3f21ad;
+        }
+        div.relative{
+            position: relative;
+            left: 30px;
+            border: 3px solid #3f21ad;
+        }
+        div.fixed{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            border: 3px solid #3f21ad;
+        }
+        div.relative{
+            position: relative;
+            width: 400px;
+            height: 200px;
+            border: 3px solid #3f21ad;
+        }
+        div.absolute{
+            position: absolute;
+            top: 80px;
+            right: 0;
+            width: 200px;
+            height: 100px;
+            border: 3px solid #3f21ad;
+        }
+    </style>
+</head>
+<body>
+    <h2>posição: estatica;</h2>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis tempore quos earum sapiente ex vitae ab obcaecati, fugit quod quaerat, quae, nostrum molestiae saepe ipsa sit maiores aut in delectus.</p>
+    <div class="static">
+        Aqui - position: static;
+    </div>
+    <h2>posição: relativa;</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil placeat a laboriosam, mollitia, modi blanditiis et esse, aliquid libero recusandae officia alias velit. Minus aut corrupti, cumque voluptatum culpa ex!</p>
+    <div class="relative">
+        Aqui - position: relative;
+    </div>
+    <h2>posição: absolute;</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore esse deserunt optio ratione amet praesentium debitis laboriosam, magni mollitia aliquam maxime quam ducimus atque voluptas omnis hic enim autem architecto!</p>
+    <div class="absolute">
+        Aqui - position: absolute;
+    </div>
+    <h2>posição: fixed;</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure laborum fugit nam est asperiores quibusdam nihil molestiae, ipsa vel minima exercitationem modi eius aliquid? Doloremque odit dolorum natus nam temporibus.</p>
+    <div class="fixed">
+        Aqui - position: fixed;
+    </div>
+</body>
+</html>
